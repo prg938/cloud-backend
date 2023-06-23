@@ -38,12 +38,13 @@ export class FilesService {
   }
 
   create(file: Express.Multer.File, userId: number) {
-    return this.repository.save({
-      filename: file.filename,
-      originalName: file.originalname,
-      size: file.size,
-      mimeType: file.mimetype,
-      user: { id: userId }
-    })
+    const f = new FileEntity()
+    const {filename, originalname, size, mimetype} = file
+    f.filename = filename
+    f.originalName = originalname
+    f.size = size
+    f.mimeType = mimetype
+    f.user = {id: userId} as any
+    return this.repository.save(f)
   }
 }
