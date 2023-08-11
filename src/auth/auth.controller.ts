@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Request, Post, UseGuards, Body } from '@nestjs/common'
 import { ApiBody, ApiTags } from '@nestjs/swagger'
+import { LoginUserDto } from 'src/users/dto/login-user.dto'
 import { CreateUserDto } from 'src/users/dto/create-user.dto'
 import { AuthService } from './auth.service'
 import { LocalAuthGuard } from './auth.guards'
@@ -19,7 +20,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @ApiBody({type: CreateUserDto})
+  @ApiBody({type: LoginUserDto})
   login(@Request() request) {
     return this.authService.login(request.user)
   }

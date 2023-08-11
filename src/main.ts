@@ -6,14 +6,11 @@ import { join } from 'path'
 import { AppModule } from './app.module'
 
 async function bootstrap() {
-  const appOptions = {cors: false}
-  const corsOptions = {
+  const app = await NestFactory.create(AppModule)
+  app.enableCors({
     credentials: true,
     origin: true
-  }
-  
-  const app = await NestFactory.create(AppModule, appOptions)
-  app.enableCors(corsOptions)
+  })
   app.use('/uploads', express.static(join(__dirname, '../', 'uploads')))
 
   const config = new DocumentBuilder()
